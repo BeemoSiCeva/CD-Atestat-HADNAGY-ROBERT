@@ -3,15 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Contact</title>
   </head>
   <link rel="stylesheet" href="style.css" />
+  <form name="submit-to-google-sheet">
+    <input name="email" type="email" placeholder="Email" required />
+    <button type="submit">Send</button>
+  </form>
+
   <body>
     <nav class="poppins-medium">
       <div class="meniu meniustanga">
-        <a href="./products.html">Products</a>
+        <a href="./products.html">Produse</a>
         ·
-        <a href="./aboutus.html">About Us</a>
+        <a href="./aboutus.html">Despre Noi</a>
       </div>
       <div class="nume">
         <img
@@ -21,19 +26,36 @@
         <a href="homepage.html" ; class="poppins-extrabold">ZENWATT</a>
       </div>
       <div class="meniu meniudreapta">
-        <a href="./contact.html">Contact Us</a>
+        <a href="./contact.html">Contactează-ne</a>
         ·
-        <a href="./map.html">Map</a>
+        <a href="./map.html">Hartă</a>
       </div>
     </nav>
     <div class="container">
       <h2>Contact Us</h2>
-      <form>
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email" required />
-        <textarea rows="5" placeholder="Your Message" required></textarea>
+      <form id="form">
+        <input type="text" placeholder="Your Name" required name="Name" />
+        <input type="email" placeholder="Your Email" required name="Email" />
+        <textarea
+          rows="5"
+          placeholder="Your Message"
+          required
+          name="Message"
+        ></textarea>
         <button type="submit">Send Message</button>
       </form>
     </div>
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbzY6x42gQSfVjVvVkVdjwRzEHUZA615Qkmz8QABITcslbypLzUbhs81Nr4XgQRornDK/exec";
+      const form = document.getElementById("form");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => console.log("Success!", response))
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
   </body>
 </html>
